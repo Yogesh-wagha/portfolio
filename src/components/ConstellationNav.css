@@ -1,0 +1,436 @@
+.constellation-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.constellation-container {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.constellation-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-star {
+  pointer-events: all;
+  filter: drop-shadow(0 0 6px var(--star-color));
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-star:hover {
+  filter: drop-shadow(0 0 12px var(--star-color));
+}
+
+/* Single Hover Label in Center */
+.center-hover-label {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - (var(--body-width) / 2));
+  transform: translateY(-50%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  font-size: 1.rem;
+  font-weight: 200;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+
+@media (max-width: 768px) {
+  .nav-label {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .constellation-svg {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-label {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+/* Constellation Content Modal */
+.constellation-content-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  pointer-events: all;
+  padding: 2rem;
+}
+
+[data-theme="light"] .constellation-content-overlay {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.constellation-content {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 3rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .constellation-content {
+  background: var(--bg-primary);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.constellation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.constellation-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  flex: 1;
+}
+
+.close-constellation {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.close-constellation:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  transform: rotate(90deg);
+}
+
+[data-theme="light"] .close-constellation:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.constellation-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.constellation-highlights {
+  margin-bottom: 2rem;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .highlight-item {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.highlight-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-primary);
+  transform: translateX(5px);
+}
+
+[data-theme="light"] .highlight-item:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.highlight-dot {
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+}
+
+.highlight-item span {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.constellation-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.explore-btn {
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(79, 70, 229, 0.4);
+}
+
+/* Responsive Design for Constellation Content */
+@media (max-width: 768px) {
+  .constellation-content-overlay {
+    padding: 1rem;
+  }
+  
+  .constellation-content {
+    padding: 2rem;
+    max-height: 90vh;
+  }
+  
+  .constellation-header h2 {
+    font-size: 2rem;
+  }
+  
+  .constellation-description {
+    font-size: 1.1rem;
+  }
+  
+  .highlight-item {
+    padding: 0.75rem;
+  }
+  
+  .highlight-item span {
+    font-size: 1rem;
+  }
+  
+  .explore-btn {
+    font-size: 1rem;
+    padding: 0.875rem 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .constellation-content {
+    padding: 1.5rem;
+  }
+  
+  .constellation-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .constellation-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .close-constellation {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin: 0;
+  }
+  
+  .constellation-description {
+    font-size: 1rem;
+  }
+  
+  .highlight-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}/*
+ Back to Constellation Button */
+.back-to-constellation {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
+  pointer-events: all;
+}
+
+.back-to-constellation:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+}
+
+.constellation-svg {
+  width: 80vw;
+  height: 70vh;
+  max-width: 800px;
+  max-height: 600px;
+  min-width: 500px;
+  min-height: 400px;
+}
+
+/* Page wrapper for smooth transitions */
+.page-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Enhanced star effects for zoom */
+.nav-star {
+  filter: drop-shadow(0 0 6px var(--star-color));
+  transition: all 0.3s ease;
+}
+
+.nav-star:hover {
+  filter: drop-shadow(0 0 12px var(--star-color));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .back-to-constellation {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+  
+  .constellation-svg {
+    width: 90%;
+    height: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-to-constellation {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+  
+  .constellation-svg {
+    width: 95%;
+    height: 95%;
+  }
+}/* R
+esponsive hover labels */
+@media (max-width: 768px) {
+  .hover-label {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .hover-label::after {
+    border-width: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hover-label {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .hover-label::after {
+    border-width: 4px;
+  }
+}/* Back
+ground mode when viewing sections */
+.constellation-container.background-mode {
+  pointer-events: all;
+  z-index: 2;
+}
+
+.constellation-container.background-mode .nav-star {
+  filter: drop-shadow(0 0 3px var(--star-color));
+}
+
+.constellation-container.background-mode .nav-star:hover {
+  filter: drop-shadow(0 0 8px var(--star-color));
+}
+
+/* Removed active star overlay - no longer needed */
+
+/* Ensure constellation is always visible but not intrusive */
+.constellation-nav {
+  pointer-events: none;
+}
+
+.constellation-container {
+  pointer-events: all;
+}
+
+/* Reduce constellation prominence when viewing sections */
+.constellation-container.background-mode svg {
+  opacity: 0.6;
+}
+
+[data-theme="light"] .constellation-container.background-mode svg {
+  opacity: 0.4;
+}
