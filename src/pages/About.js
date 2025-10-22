@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, Linkedin, Twitter } from 'lucide-react';
+import { Mail, MapPin, Phone, Linkedin, Twitter, Github } from 'lucide-react';
 
 const About = () => {
-  const [message, setMessage] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Message:', message);
-    setMessage('');
-    alert('Thank you for your message! I\'ll get back to you soon.');
-  };
 
   return (
     <motion.div
@@ -20,6 +11,7 @@ const About = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.6 }}
+      style={{ userSelect: 'text' }}
     >
       <h1 className="page-title">About Me</h1>
 
@@ -29,23 +21,32 @@ const About = () => {
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
+          style={{ userSelect: 'text' }}
         >
           <h2>My Journey</h2>
           <p>
-            I am a passionate astrophysicist with over 15 years of experience in 
-            stellar evolution, exoplanet research, and cosmic ray physics. My work 
-            focuses on understanding the fundamental processes that govern our universe.
+            I am an aspiring astrophysicist with over two years of research experience
+            in observational astronomy, with a focus on high-energy transients.
+            My work spans diverse areas, including Near-Earth Asteroid detection, 
+            analysis of Gamma-Ray Burst (GRB) afterglows, and the development of 
+            scheduling algorithms for ground-based telescopes aimed at observing 
+            electromagnetic counterparts to gravitational waves (GW).
           </p>
           <p>
-            I completed my Ph.D. in Astrophysics from [University Name] in 2008, 
-            where I specialized in the study of binary star systems and their role 
-            in stellar evolution. Since then, I have been involved in numerous 
-            international collaborations and space missions.
+            I hold a bachelor’s degree in Mechanical Engineering from VJTI, Mumbai, 
+            where a key highlight was contributing to the design and fabrication of 
+            an all-terrain vehicle for a national-level competition. After graduation, 
+            I worked as an Assistant Manager in the mechanical maintenance department 
+            of a steel manufacturing company before following my growing passion for physics.
           </p>
           <p>
-            When I'm not peering into the cosmos, I enjoy sharing the wonders of 
-            the universe through public lectures, educational outreach programs, 
-            and mentoring the next generation of astronomers.
+            This passion led me to pursue a master’s degree at IIT Bombay under the guidance
+            of Prof. Varun Bhalerao. My master’s thesis focused on studying transients using 
+            the GROWTH-India telescope, the country’s only fully robotic optical telescope.
+          </p>
+          <p>
+            Outside of research, I enjoy running, trekking, and have recently developed 
+             a love for reading.
           </p>
         </motion.div>
 
@@ -54,29 +55,57 @@ const About = () => {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
+          style={{ userSelect: 'text' }}
         >
           <h2>Contact Information</h2>
           <div className="contact-info">
             <div className="contact-item">
               <Mail size={20} />
-              <span>[your.email]@university.edu</span>
+              <span>ywagh4430@gmail.com</span>
             </div>
             <div className="contact-item">
               <Phone size={20} />
-              <span>+1 (555) 123-4567</span>
+              <span>+91 8108466515</span>
             </div>
             <div className="contact-item">
               <MapPin size={20} />
-              <span>[University Name], [City, State]</span>
+              <span>IIT Bombay, Powai, Maharashtra</span>
             </div>
           </div>
 
-          <div className="social-links">
-            <a href="#" className="social-link">
+          <div className="social-links" style={{ pointerEvents: 'auto', userSelect: 'text' }}>
+            <a
+              href="https://www.linkedin.com/in/yogesh-wagh-2b9518141/"
+              className="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="LinkedIn Profile"
+              onClick={() => console.log('LinkedIn clicked')}
+              onMouseEnter={() => console.log('LinkedIn hovered')}
+            >
               <Linkedin size={24} />
             </a>
-            <a href="#" className="social-link">
+            <a
+              href="https://x.com/Yogesh_Wagh1729"
+              className="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="X Profile"
+              onClick={() => console.log('X clicked')}
+              onMouseEnter={() => console.log('X hovered')}
+            >
               <Twitter size={24} />
+            </a>
+            <a
+              href="https://github.com/Yogesh-wagha"
+              className="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Github profile"
+              onClick={() => console.log('github clicked')}
+              onMouseEnter={() => console.log('github hovered')}
+            >
+              <Github size={24} />
             </a>
           </div>
         </motion.div>
@@ -86,29 +115,8 @@ const About = () => {
         className="section"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.6 }}
-      >
-        <h2>Send Me a Message</h2>
-        <form onSubmit={handleSubmit} className="contact-form">
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Share your thoughts, questions, or collaboration ideas..."
-            className="message-box"
-            rows="6"
-            required
-          />
-          <button type="submit" className="btn">
-            Send Message
-          </button>
-        </form>
-      </motion.div>
-
-      <motion.div
-        className="section"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
+        style={{ userSelect: 'text' }}
       >
         <h2>Research Interests</h2>
         <div className="research-tags">

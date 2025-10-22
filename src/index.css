@@ -55,3 +55,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-secondary);
 }
+body, div, p, span, h1, h2, h3, h4, h5, h6, .section, .contact-info, .research-tags {
+  user-select: text !important;
+}

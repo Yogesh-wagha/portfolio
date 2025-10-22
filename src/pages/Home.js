@@ -18,14 +18,12 @@ const Home = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          <h1 className="hero-title">Dr. [Your Name]</h1>
+          <h1 className="hero-title">Yogesh P. Wagh</h1>
           <p className="hero-subtitle space-mono">
-            Astrophysicist & Cosmic Explorer
+            Astrophysicist
           </p>
           <p className="hero-description">
-            Unraveling the mysteries of the universe through cutting-edge
-            research in stellar evolution, exoplanet detection, and cosmic
-            phenomena.
+            Can everything be descibed as a set of harmonic oscillators?
           </p>
         </motion.div>
 

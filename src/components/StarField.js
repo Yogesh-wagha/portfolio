@@ -79,7 +79,8 @@ const StarField = ({ theme }) => {
         width: '100%',
         height: '100%',
         zIndex: 1,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        userSelect: 'none'  // Add this to prevent selection interference
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

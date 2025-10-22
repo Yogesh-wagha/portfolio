@@ -149,7 +149,7 @@ const ConstellationNav = ({ currentPage, setCurrentPage }) => {
     constellationPoints.find(p => p.id === selectedConstellation) : null;
 
   return (
-    <div className="constellation-nav">
+    <div className="constellation-nav back">
       {/* Back to Constellation Button */}
       {currentPage !== 'home' && (
         <motion.button
