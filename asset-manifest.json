@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.55fabfba.css",
-    "main.js": "/portfolio/static/js/main.b922d313.js",
+    "main.js": "/portfolio/static/js/main.add63d92.js",
     "static/media/starry-night.jpg": "/portfolio/static/media/starry-night.e09b9c23799c3c417657.jpg",
     "static/media/vigyan-samagam-2019.jpg": "/portfolio/static/media/vigyan-samagam-2019.790c5ecc07927c8ef47e.jpg",
     "static/media/transient-presentation-2024.jpg": "/portfolio/static/media/transient-presentation-2024.eb5be5b64a991701a273.jpg",
@@ -9,10 +9,10 @@
     "static/media/meteor-shower.jpg": "/portfolio/static/media/meteor-shower.eeab7c653d5921577bbf.jpg",
     "index.html": "/portfolio/index.html",
     "main.55fabfba.css.map": "/portfolio/static/css/main.55fabfba.css.map",
-    "main.b922d313.js.map": "/portfolio/static/js/main.b922d313.js.map"
+    "main.add63d92.js.map": "/portfolio/static/js/main.add63d92.js.map"
   },
   "entrypoints": [
     "static/css/main.55fabfba.css",
-    "static/js/main.b922d313.js"
+    "static/js/main.add63d92.js"
   ]
 }
