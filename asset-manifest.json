@@ -1,13 +1,18 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.8da295be.css",
-    "main.js": "/portfolio/static/js/main.8505ecce.js",
+    "main.css": "/portfolio/static/css/main.55fabfba.css",
+    "main.js": "/portfolio/static/js/main.697fc03b.js",
+    "static/media/starry-night.jpg": "/portfolio/static/media/starry-night.e09b9c23799c3c417657.jpg",
+    "static/media/vigyan-samagam-2019.jpg": "/portfolio/static/media/vigyan-samagam-2019.790c5ecc07927c8ef47e.jpg",
+    "static/media/transient-presentation-2024.jpg": "/portfolio/static/media/transient-presentation-2024.eb5be5b64a991701a273.jpg",
+    "static/media/moon-photo.jpg": "/portfolio/static/media/moon-photo.db54663bdf4d35906ca0.jpg",
+    "static/media/meteor-shower.jpg": "/portfolio/static/media/meteor-shower.eeab7c653d5921577bbf.jpg",
     "index.html": "/portfolio/index.html",
-    "main.8da295be.css.map": "/portfolio/static/css/main.8da295be.css.map",
-    "main.8505ecce.js.map": "/portfolio/static/js/main.8505ecce.js.map"
+    "main.55fabfba.css.map": "/portfolio/static/css/main.55fabfba.css.map",
+    "main.697fc03b.js.map": "/portfolio/static/js/main.697fc03b.js.map"
   },
   "entrypoints": [
-    "static/css/main.8da295be.css",
-    "static/js/main.8505ecce.js"
+    "static/css/main.55fabfba.css",
+    "static/js/main.697fc03b.js"
   ]
 }
