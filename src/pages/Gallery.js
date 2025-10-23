@@ -1,61 +1,55 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ZoomIn } from 'lucide-react';
+import { X, ZoomIn, Camera } from 'lucide-react';
+
+// Import your mobile photography images
+import starryNight from '../assets/images/gallery/starry-night.jpg';
+import meteorShower from '../assets/images/gallery/meteor-shower.jpg';
+import moonPhoto from '../assets/images/gallery/moon-photo.jpg';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const galleryItems = [
+  // Mobile Photography Images - Your actual astrophotography
+  const mobilePhotography = [
     {
       id: 1,
-      title: "Andromeda Galaxy M31",
-      description: "High-resolution image of our nearest galactic neighbor",
-      category: "Deep Space",
-      image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=600&fit=crop"
+      title: "Starry Night Sky",
+      description: "Night sky photography capturing the beauty of stars with silhouetted tree",
+      category: "Mobile Photography",
+      image: starryNight
     },
     {
       id: 2,
-      title: "Orion Nebula",
-      description: "Star-forming region in the constellation Orion",
-      category: "Nebulae",
-      image: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=800&h=600&fit=crop"
+      title: "Meteor Streak",
+      description: "Captured a meteor streak across the night sky during a meteor shower",
+      category: "Mobile Photography",
+      image: meteorShower
     },
     {
       id: 3,
-      title: "Saturn's Rings",
-      description: "Detailed view of Saturn's magnificent ring system",
-      category: "Planetary",
-      image: "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800&h=600&fit=crop"
-    },
-    {
-      id: 4,
-      title: "Milky Way Core",
-      description: "The galactic center as seen from Earth",
-      category: "Deep Space",
-      image: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800&h=600&fit=crop"
-    },
-    {
-      id: 5,
-      title: "Eagle Nebula",
-      description: "The famous 'Pillars of Creation' star formation region",
-      category: "Nebulae",
-      image: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=800&h=600&fit=crop"
-    },
-    {
-      id: 6,
-      title: "Jupiter's Great Red Spot",
-      description: "The massive storm system on Jupiter",
-      category: "Planetary",
-      image: "https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?w=800&h=600&fit=crop"
+      title: "Moon Close-up",
+      description: "Detailed lunar surface captured through mobile phone telescope attachment",
+      category: "Mobile Photography",
+      image: moonPhoto
     }
   ];
 
-  const categories = ['All', 'Deep Space', 'Nebulae', 'Planetary'];
+  const categories = ['All', 'Mobile Photography', 'Professional Photography'];
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const filteredItems = activeCategory === 'All' 
-    ? galleryItems 
-    : galleryItems.filter(item => item.category === activeCategory);
+  const getFilteredItems = () => {
+    if (activeCategory === 'All') {
+      return mobilePhotography;
+    } else if (activeCategory === 'Mobile Photography') {
+      return mobilePhotography;
+    } else if (activeCategory === 'Professional Photography') {
+      return []; // Empty array for now
+    }
+    return [];
+  };
+
+  const filteredItems = getFilteredItems();
 
   return (
     <motion.div
@@ -65,7 +59,7 @@ const Gallery = () => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.6 }}
     >
-      <h1 className="page-title">Astrophotography Gallery</h1>
+      <h1 className="page-title">Gallery</h1>
 
       <motion.div
         className="gallery-filters"
@@ -85,37 +79,59 @@ const Gallery = () => {
       </motion.div>
 
       <motion.div
-        className="gallery-grid"
+        className="gallery-grid-custom"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6 }}
       >
         <AnimatePresence>
-          {filteredItems.map((item, index) => (
+          {activeCategory === 'Professional Photography' ? (
             <motion.div
-              key={item.id}
-              className="gallery-item"
-              layout
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              onClick={() => setSelectedImage(item)}
+              className="coming-soon-message"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
             >
-              <div className="gallery-image-container">
-                <img src={item.image} alt={item.title} className="gallery-image" />
-                <div className="gallery-overlay">
-                  <ZoomIn size={24} />
-                </div>
-              </div>
-              <div className="gallery-info">
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <span className="category-tag">{item.category}</span>
-              </div>
+              <Camera size={48} />
+              <h3>Professional Photography</h3>
+              <p>Come back soon for professional DSLR captures!</p>
             </motion.div>
-          ))}
+          ) : (
+            filteredItems.map((item, index) => (
+              <motion.div
+                key={item.id}
+                className="gallery-item-custom"
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.02 }}
+                onClick={() => setSelectedImage(item)}
+              >
+                <div className="gallery-image-container-custom">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="gallery-image-custom"
+                    onError={(e) => {
+                      // Fallback to a placeholder if image fails to load
+                      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIExvYWRpbmc8L3RleHQ+PC9zdmc+';
+                    }}
+                  />
+                  <div className="gallery-overlay">
+                    <ZoomIn size={24} />
+                  </div>
+                </div>
+                <div className="gallery-info">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <span className="category-tag">{item.category}</span>
+                </div>
+              </motion.div>
+            ))
+          )}
         </AnimatePresence>
       </motion.div>
 

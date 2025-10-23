@@ -1,54 +1,41 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, Users, Award } from 'lucide-react';
+import { Calendar, MapPin, Users, Award, Download } from 'lucide-react';
+
+// Import poster images
+import transientPresentationImg from '../assets/images/transient-presentation-2024.jpg';
 
 const Conferences = () => {
-  const upcomingConferences = [
-    {
-      title: "International Astronomical Union General Assembly",
-      date: "August 2024",
-      location: "Cape Town, South Africa",
-      role: "Keynote Speaker",
-      topic: "Future of Exoplanet Research"
-    },
-    {
-      title: "American Astronomical Society Meeting",
-      date: "January 2025",
-      location: "National Harbor, MD",
-      role: "Session Chair",
-      topic: "Stellar Evolution in Binary Systems"
-    }
-  ];
+  console.log('Conference component loaded');
+  console.log('transientPresentationImg:', transientPresentationImg);
+  // const upcomingConferences = [
+  //   {
+  //     title: "International Astronomical Union General Assembly",
+  //     date: "August 2024",
+  //     location: "Cape Town, South Africa",
+  //     role: "Keynote Speaker",
+  //     topic: "Future of Exoplanet Research"
+  //   },
+  //   {
+  //     title: "American Astronomical Society Meeting",
+  //     date: "January 2025",
+  //     location: "National Harbor, MD",
+  //     role: "Session Chair",
+  //     topic: "Stellar Evolution in Binary Systems"
+  //   }
+  // ];
 
   const pastConferences = [
     {
-      title: "European Astronomical Society Annual Meeting",
-      date: "July 2023",
-      location: "Krakow, Poland",
-      role: "Invited Speaker",
-      topic: "Machine Learning in Astrophysics",
-      award: "Best Presentation Award"
-    },
-    {
-      title: "Gravitational Wave Physics and Astronomy Workshop",
-      date: "March 2023",
-      location: "Hannover, Germany",
-      role: "Panel Discussion",
-      topic: "Multi-messenger Astronomy"
-    },
-    {
-      title: "International Conference on Space Science",
-      date: "September 2022",
-      location: "Tokyo, Japan",
-      role: "Keynote Speaker",
-      topic: "Dark Matter Detection Methods"
-    },
-    {
-      title: "Exoplanet Science Strategy Forum",
-      date: "May 2022",
-      location: "Pasadena, CA",
-      role: "Working Group Lead",
-      topic: "Atmospheric Characterization Techniques"
+      title: "Transient Meeting",
+      date: "April 2024",
+      location: "IIT Bombay, Mumbai",
+      role: "Poster Presentation",
+      topic: "NEO Detection using GROWTH-India Telescope and Astreaks Pipeline",
+      description: "Presented my master's thesis work on Near-Earth Object (NEO) detection methods using the GROWTH-India Telescope. Showcased my contribution to building the Astreaks Python pipeline for automated NEO detection and characterization.",
+      presentationType: "One Minute Poster Presentation",
+      hasPhotos: true,
+      presentationImage: transientPresentationImg, // Add your presentation photo
+      posterDownload: "/documents/transient-poster-2024.pdf" // Add your poster PDF
     }
   ];
 
@@ -60,34 +47,76 @@ const Conferences = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
     >
-      <div className="conference-header">
-        <h3>{conference.title}</h3>
-        {conference.award && (
-          <div className="award-badge">
-            <Award size={16} />
-            {conference.award}
+      <div className="conference-content-wrapper">
+        <div className="conference-main-content">
+          <div className="conference-header">
+            <h3>{conference.title}</h3>
+            {conference.award && (
+              <div className="award-badge">
+                <Award size={16} />
+                {conference.award}
+              </div>
+            )}
+          </div>
+
+          <div className="conference-details">
+            <div className="detail-item">
+              <Calendar size={16} />
+              <span>{conference.date}</span>
+            </div>
+            <div className="detail-item">
+              <MapPin size={16} />
+              <span>{conference.location}</span>
+            </div>
+            <div className="detail-item">
+              <Users size={16} />
+              <span>{conference.role}</span>
+            </div>
+            {conference.presentationType && (
+              <div className="detail-item">
+                <Award size={16} />
+                <span>{conference.presentationType}</span>
+              </div>
+            )}
+          </div>
+
+          <p className="conference-topic">
+            <strong>Topic:</strong> {conference.topic}
+          </p>
+
+          {conference.description && (
+            <p className="conference-description">{conference.description}</p>
+          )}
+
+          {conference.posterDownload && (
+            <a
+              href={conference.posterDownload}
+              className="btn conference-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+            >
+              <Download size={16} />
+              Download Poster
+            </a>
+          )}
+        </div>
+
+        {conference.hasPhotos && conference.presentationImage && (
+          <div className="conference-photo-sidebar">
+            <img
+              src={conference.presentationImage}
+              alt={`${conference.title} presentation`}
+              className="conference-image-compact"
+              onLoad={() => console.log('✅ Conference image loaded:', conference.presentationImage)}
+              onError={(e) => {
+                console.error('❌ Conference image failed to load:', conference.presentationImage);
+                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNvbmZlcmVuY2UgUGhvdG88L3RleHQ+PC9zdmc+';
+              }}
+            />
           </div>
         )}
       </div>
-      
-      <div className="conference-details">
-        <div className="detail-item">
-          <Calendar size={16} />
-          <span>{conference.date}</span>
-        </div>
-        <div className="detail-item">
-          <MapPin size={16} />
-          <span>{conference.location}</span>
-        </div>
-        <div className="detail-item">
-          <Users size={16} />
-          <span>{conference.role}</span>
-        </div>
-      </div>
-      
-      <p className="conference-topic">
-        <strong>Topic:</strong> {conference.topic}
-      </p>
     </motion.div>
   );
 
@@ -101,6 +130,7 @@ const Conferences = () => {
     >
       <h1 className="page-title">Conferences & Presentations</h1>
 
+      {/* Conference Stats - Commented out for future use
       <motion.div
         className="conference-stats section"
         initial={{ opacity: 0, y: 20 }}
@@ -109,24 +139,26 @@ const Conferences = () => {
       >
         <div className="stats-grid">
           <div className="stat-card">
-            <h3>45+</h3>
+            <h3>1</h3>
             <p>Conferences Attended</p>
           </div>
           <div className="stat-card">
-            <h3>25</h3>
-            <p>Invited Talks</p>
+            <h3>1</h3>
+            <p>Poster Presentations</p>
           </div>
           <div className="stat-card">
-            <h3>12</h3>
+            <h3>0</h3>
             <p>Keynote Speeches</p>
           </div>
           <div className="stat-card">
-            <h3>8</h3>
+            <h3>0</h3>
             <p>Awards Received</p>
           </div>
         </div>
       </motion.div>
+      */}
 
+      {/* Upcoming Conferences - Commented out for future use
       <motion.div
         className="section"
         initial={{ opacity: 0, y: 20 }}
@@ -140,16 +172,17 @@ const Conferences = () => {
           )}
         </div>
       </motion.div>
+      */}
 
       <motion.div
         className="section"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.6 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
       >
-        <h2>Recent Conferences</h2>
+        <h2>Conference Presentations</h2>
         <div className="conferences-grid">
-          {pastConferences.map((conference, index) => 
+          {pastConferences.map((conference, index) =>
             renderConferenceCard(conference, index)
           )}
         </div>
@@ -159,25 +192,13 @@ const Conferences = () => {
         className="section"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.6 }}
+        transition={{ delay: 0.6, duration: 0.6 }}
       >
-        <h2>Speaking Topics</h2>
+        <h2>Topics Presneted</h2>
         <div className="topics-grid">
           <div className="topic-card">
-            <h4>Exoplanet Research</h4>
-            <p>Detection methods, atmospheric analysis, and habitability studies</p>
-          </div>
-          <div className="topic-card">
-            <h4>Stellar Evolution</h4>
-            <p>Binary star systems, mass transfer, and stellar lifecycles</p>
-          </div>
-          <div className="topic-card">
-            <h4>Machine Learning in Astronomy</h4>
-            <p>AI applications in data analysis and pattern recognition</p>
-          </div>
-          <div className="topic-card">
-            <h4>Gravitational Waves</h4>
-            <p>Multi-messenger astronomy and neutron star physics</p>
+            <h4>NEO Detection</h4>
+            <p>Near-Earth Object detection methods using ground-based telescopes, automated pipeline development, and astrometric analysis</p>
           </div>
         </div>
       </motion.div>

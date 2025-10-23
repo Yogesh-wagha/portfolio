@@ -76,7 +76,7 @@ const ConstellationNav = ({ currentPage, setCurrentPage }) => {
     },
     { 
       id: 'cv', 
-      label: 'CV Download', 
+      label: 'CV', 
       x: 75, 
       y: 80, 
       content: {

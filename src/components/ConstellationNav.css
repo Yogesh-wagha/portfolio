@@ -8,7 +8,7 @@
   height: 100%;
   z-index: 10; /* Set a definitive z-index */
   pointer-events: none;
-  user-select: none;
+  /* user-select: none; <-- This was removed to allow selection on underlying content */
 }
 
 .constellation-container {

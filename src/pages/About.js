@@ -120,14 +120,11 @@ const About = () => {
       >
         <h2>Research Interests</h2>
         <div className="research-tags">
-          <span className="tag">Stellar Evolution</span>
-          <span className="tag">Exoplanet Detection</span>
-          <span className="tag">Binary Star Systems</span>
-          <span className="tag">Cosmic Ray Physics</span>
-          <span className="tag">Space Missions</span>
+          <span className="tag">GRB Afterglows</span>
+          <span className="tag">Near Earth Asteroid Detection</span>
+          <span className="tag">Observational Astronomy</span>
+          <span className="tag">Time-Domain Astronomy</span>
           <span className="tag">Gravitational Waves</span>
-          <span className="tag">Dark Matter</span>
-          <span className="tag">Galactic Dynamics</span>
         </div>
       </motion.div>
     </motion.div>

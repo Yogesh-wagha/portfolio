@@ -49,10 +49,10 @@ function App() {
     <div className="App">
       <StarField theme={theme} />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-      
+
       {/* Show constellation navigation */}
       <ConstellationNav currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      
+
       {/* Show page content only when not on home */}
       {currentPage !== 'home' && (
         <AnimatePresence mode="wait">
@@ -68,7 +68,7 @@ function App() {
           </motion.div>
         </AnimatePresence>
       )}
-      
+
       {/* Show home content when on home page */}
       {currentPage === 'home' && (
         <motion.div

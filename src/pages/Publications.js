@@ -1,55 +1,56 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Calendar, Users, BookOpen } from 'lucide-react';
+import { gcnCirculars as gcnData } from '../data/gcnCirculars';
+import { mpecCirculars as mpecData } from '../data/mpecCirculars';
 
 const Publications = () => {
-  const [activeTab, setActiveTab] = useState('recent');
+  const [activeTab, setActiveTab] = useState('publications');
+  const [circularTab, setCircularTab] = useState('gcn');
+  const [gcnCirculars, setGcnCirculars] = useState([]);
+  const [mpecCirculars, setMpecCirculars] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const recentPublications = [
+  const publications = [
     {
-      title: "Stellar Evolution in Binary Systems: A Comprehensive Analysis",
-      authors: "[Your Name], J. Smith, M. Johnson",
-      journal: "Astrophysical Journal",
-      year: "2024",
-      doi: "10.1088/0004-637X/xxx/x/xxx",
-      abstract: "We present a detailed study of stellar evolution in close binary systems, revealing new insights into mass transfer mechanisms and their impact on stellar lifecycles."
-    },
-    {
-      title: "Exoplanet Atmospheres: Spectroscopic Evidence for Water Vapor",
-      authors: "[Your Name], A. Davis, R. Wilson",
-      journal: "Nature Astronomy",
-      year: "2023",
-      doi: "10.1038/s41550-023-xxxxx-x",
-      abstract: "Using high-resolution spectroscopy, we detected water vapor signatures in the atmospheres of three hot Jupiter exoplanets, providing crucial data for atmospheric modeling."
-    },
-    {
-      title: "Gravitational Wave Signatures from Neutron Star Mergers",
-      authors: "K. Brown, [Your Name], L. Garcia",
-      journal: "Physical Review Letters",
-      year: "2023",
-      doi: "10.1103/PhysRevLett.xxx.xxxxxx",
-      abstract: "We analyze gravitational wave data from recent neutron star merger events, identifying unique signatures that constrain the equation of state of neutron star matter."
+      title: "GRB 250704B: An Off-axis Short GRB with a Long-Lived Afterglow Plateau",
+      authors: "Swain, Ahumada, Patil, Wagh et al.",
+      journal: "ApJ",
+      year: "2025",
+      doi: "10.48550/arXiv.2509.02769",
+      status: "submitted",
+      abstract: "We present a detailed multi-wavelength afterglow study of the short GRB 250704B, extensively monitored in optical and near-infrared bands. Its afterglow displays an unusually long-duration plateau followed by an achromatic break and a steep decline, deviating from canonical GRB afterglows. While long plateaus are often explained by central engine activity, we find that for GRB 250704B, an energy injection model requires unreasonable parameters. The afterglow is better explained by an off-axis power-law structured jet with a narrow core () viewed at a modest angle (). A comparison with GRB 170817A shows that both events are consistent with the off-axis structured jet scenario, where the shape of the light curve is governed primarily by the geometry of the jet and the viewing angle rather than the energetics, microphysical parameters, or external density. Our results underscore the importance of incorporating the jet structure in GRB modeling."
     }
   ];
 
-  const selectedPublications = [
-    {
-      title: "Dark Matter Distribution in Galaxy Clusters",
-      authors: "[Your Name], et al.",
-      journal: "Monthly Notices of the Royal Astronomical Society",
-      year: "2022",
-      doi: "10.1093/mnras/stxx-xxxx",
-      abstract: "A comprehensive study of dark matter distribution using weak lensing techniques across 50 galaxy clusters."
-    },
-    {
-      title: "Machine Learning Applications in Stellar Classification",
-      authors: "[Your Name], P. Anderson, T. Lee",
-      journal: "Astronomical Journal",
-      year: "2021",
-      doi: "10.3847/1538-3881/abxxxx",
-      abstract: "We developed a novel machine learning algorithm for automated stellar classification with 98% accuracy."
-    }
-  ];
+  // Load data directly from imports
+  useEffect(() => {
+    console.log('🔄 Loading circulars from imported data...');
+
+    // Process GCN data
+    const processedGcnData = gcnData.map(item => ({
+      id: item.id,
+      title: item.title,
+      date: item.date,
+      url: `https://gcn.nasa.gov/circulars/${item.id}`
+    }));
+
+    // Process MPEC data
+    const processedMpecData = mpecData.map(item => ({
+      name: item.name,
+      title: item.name,
+      url: item.link
+    }));
+
+    console.log('✅ GCN data loaded:', processedGcnData.length, 'items');
+    console.log('✅ MPEC data loaded:', processedMpecData.length, 'items');
+
+    setGcnCirculars(processedGcnData);
+    setMpecCirculars(processedMpecData);
+    setLoading(false);
+
+    console.log('🎉 All circulars loaded successfully!');
+  }, []);
 
   const renderPublications = (publications) => {
     return publications.map((pub, index) => (
@@ -60,7 +61,14 @@ const Publications = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.1, duration: 0.5 }}
       >
-        <h3 className="pub-title">{pub.title}</h3>
+        <div className="pub-header">
+          <h3 className="pub-title">{pub.title}</h3>
+          {pub.status && (
+            <span className={`pub-status ${pub.status}`}>
+              {pub.status === 'submitted' ? 'Submitted' : 'Published'}
+            </span>
+          )}
+        </div>
         <p className="pub-authors">
           <Users size={16} />
           {pub.authors}
@@ -78,6 +86,64 @@ const Publications = () => {
         </div>
       </motion.div>
     ));
+  };
+
+  const renderGCNCirculars = (circulars) => {
+    return (
+      <div className="circulars-grid">
+        {circulars.map((circular, index) => (
+          <motion.div
+            key={index}
+            className="circular-card-compact card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05, duration: 0.4 }}
+          >
+            <div className="circular-header-compact">
+              <span className="circular-tag gcn-tag">GCN</span>
+              <h4 className="circular-title-compact">{circular.title}</h4>
+            </div>
+            <p className="circular-date-compact">
+              <Calendar size={14} />
+              {circular.date}
+            </p>
+            <div className="circular-actions-compact">
+              <a href={circular.url} className="btn-compact circular-btn" target="_blank" rel="noopener noreferrer">
+                <ExternalLink size={14} />
+                GCN {circular.id}
+              </a>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderMinorPlanetCirculars = (circulars) => {
+    return (
+      <div className="circulars-grid">
+        {circulars.map((circular, index) => (
+          <motion.div
+            key={index}
+            className="circular-card-compact card mpec-card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05, duration: 0.4 }}
+          >
+            <div className="circular-header-compact">
+              <span className="circular-tag mpc-tag">MPEC</span>
+              <h4 className="circular-title-compact">{circular.title}</h4>
+            </div>
+            <div className="circular-actions-compact">
+              <a href={circular.url} className="btn-compact circular-btn" target="_blank" rel="noopener noreferrer">
+                <ExternalLink size={14} />
+                {circular.name}
+              </a>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -98,19 +164,19 @@ const Publications = () => {
       >
         <div className="stats-grid">
           <div className="stat-card">
-            <h3>52</h3>
+            <h3>1</h3>
             <p>Total Publications</p>
           </div>
           <div className="stat-card">
-            <h3>1,247</h3>
-            <p>Total Citations</p>
+            <h3>{gcnCirculars.length + mpecCirculars.length}</h3>
+            <p>Number of Circulars</p>
           </div>
           <div className="stat-card">
-            <h3>23.9</h3>
-            <p>Average Citations per Paper</p>
+            <h3>2</h3>
+            <p>Citations</p>
           </div>
           <div className="stat-card">
-            <h3>15</h3>
+            <h3>1</h3>
             <p>h-index</p>
           </div>
         </div>
@@ -123,22 +189,66 @@ const Publications = () => {
         transition={{ delay: 0.4, duration: 0.6 }}
       >
         <button
-          className={`tab-button ${activeTab === 'recent' ? 'active' : ''}`}
-          onClick={() => setActiveTab('recent')}
+          className={`tab-button ${activeTab === 'publications' ? 'active' : ''}`}
+          onClick={() => setActiveTab('publications')}
         >
-          Recent Publications
+          Publications
         </button>
         <button
-          className={`tab-button ${activeTab === 'selected' ? 'active' : ''}`}
-          onClick={() => setActiveTab('selected')}
+          className={`tab-button ${activeTab === 'circulars' ? 'active' : ''}`}
+          onClick={() => setActiveTab('circulars')}
         >
-          Selected Works
+          Circulars
         </button>
       </motion.div>
 
       <div className="publications-content">
-        {activeTab === 'recent' && renderPublications(recentPublications)}
-        {activeTab === 'selected' && renderPublications(selectedPublications)}
+        {activeTab === 'publications' && (
+          <div>
+            {renderPublications(publications)}
+          </div>
+        )}
+
+        {activeTab === 'circulars' && (
+          <div>
+            <motion.div
+              className="circular-subtabs"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <button
+                className={`subtab-button ${circularTab === 'gcn' ? 'active' : ''}`}
+                onClick={() => setCircularTab('gcn')}
+              >
+                GCN Circulars
+              </button>
+              <button
+                className={`subtab-button ${circularTab === 'mpc' ? 'active' : ''}`}
+                onClick={() => setCircularTab('mpc')}
+              >
+                Minor Planet Center
+              </button>
+            </motion.div>
+
+            <div className="circulars-content">
+              {loading ? (
+                <div className="loading-message">Loading circulars...</div>
+              ) : (
+                <>
+                  {circularTab === 'gcn' && (
+                    gcnCirculars.length > 0 ? renderGCNCirculars(gcnCirculars) :
+                      <div className="no-data-message">No GCN circulars found. Check console for errors.</div>
+                  )}
+                  {circularTab === 'mpc' && (
+                    mpecCirculars.length > 0 ? renderMinorPlanetCirculars(mpecCirculars) :
+                      <div className="no-data-message">No MPEC circulars found. Check console for errors.</div>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </motion.div>
   );
